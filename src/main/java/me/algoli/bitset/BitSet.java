@@ -8,10 +8,11 @@ import java.util.Arrays;
 public class BitSet {
 
     private final int UNIT_SIZE = 64;
-//    private final int BIT_MASK = 1  (UNIT_SIZE - 1);
-
     long[] values = null;
     int usedLength = 0;
+    private enum Op {
+        AND, OR, XOR
+    }
 
     private BitSet() {
         this.values = new long[1];
@@ -41,19 +42,46 @@ public class BitSet {
     }
 
     public BitSet and(BitSet set) {
-        return null;
+        long[] andOpResult = operate(set.getValues(), Op.AND);
+        return BitSet.create(andOpResult, andOpResult.length);
     }
 
     public BitSet or(BitSet set) {
-        return null;
+        long[] andOpResult = operate(set.getValues(), Op.OR);
+        return BitSet.create(andOpResult, andOpResult.length);
     }
 
     public BitSet xor(BitSet set) {
-        return null;
+        long[] andOpResult = operate(set.getValues(), Op.XOR);
+        return BitSet.create(andOpResult, andOpResult.length);
+    }
+
+    private long[] operate(long[] thatVal, Op op) {
+        long[] longer = thatVal;
+        long[] shorter = getValues();
+        if (this.getValues().length > thatVal.length) {
+            longer = getValues();
+            shorter = thatVal;
+        }
+
+        for (int i=0; i < shorter.length; i++) {
+            switch (op) {
+                case AND:
+                    longer[i] &= shorter[i];
+                    break;
+                case OR:
+                    longer[i] |= shorter[i];
+                    break;
+                case XOR:
+                    longer[i] ^= shorter[i];
+                    break;
+            }
+        }
+        return longer;
     }
 
     public BitSet clear(int index) {
-        return null;
+        return set(index, false);
     }
 
     public BitSet clear(int from, int to) {
@@ -61,7 +89,8 @@ public class BitSet {
     }
 
     public BitSet toggle(int index) {
-        return null;
+        boolean val = get(index);
+        return set(index, !val);
     }
 
     public BitSet toggle(int from, int to) {
@@ -69,8 +98,8 @@ public class BitSet {
     }
 
     public boolean get(int index) {
-        assert index >= 0 : String.format("index [%s] has to larger than or equal to 0", index);
-        assert index <= size() : String.format("index [%s] is greater than the size [%s]", index, size());
+        enforceIndex(index);
+        updateUsedLength(index);
         int arrayIndex = index / UNIT_SIZE;
         int indexInside = index % UNIT_SIZE;
         boolean result = ((values[arrayIndex] >> indexInside) & 1) == 1;
@@ -82,17 +111,28 @@ public class BitSet {
     }
 
     public BitSet set(int index) {
-        assert index >= 0 : String.format("index [%s] has to larger than or equal to 0", index);
-        assert index <= size() : String.format("index [%s] is greater than the size [%s]", index, size());
-        int arrayIndex = index / UNIT_SIZE;
-        int indexInside = index % UNIT_SIZE;
-        long[] newVals = Arrays.copyOf(values, values.length);
-        newVals[arrayIndex] = newVals[arrayIndex] | (0x1 << indexInside);
-        return create(newVals, newVals.length);
+        return set(index, true);
     }
 
     public BitSet set(int index, boolean value) {
-        return null;
+        enforceIndex(index);
+        int arrayIndex = index / UNIT_SIZE;
+        int indexInside = index % UNIT_SIZE;
+        long[] newVals = Arrays.copyOf(values, values.length);
+        int val = value? 1 : 0;
+        newVals[arrayIndex] = newVals[arrayIndex] | (val << indexInside);
+        return create(newVals, usedLength);
+    }
+
+    private void enforceIndex(int index) {
+        assert index >= 0 : String.format("index [%s] has to be larger than or equal to 0", index);
+        assert index <= usedLength : String.format("index [%s] is greater than the size [%s]", index, size());
+    }
+
+    private void updateUsedLength(int newLength) {
+        if (newLength > usedLength) {
+            usedLength = newLength;
+        }
     }
 
     public BitSet set(int from, int to, boolean value) {
@@ -105,5 +145,9 @@ public class BitSet {
 
     public int size() {
         return values.length * UNIT_SIZE;
+    }
+
+    public long[] getValues() {
+        return Arrays.copyOf(values, usedLength);
     }
 }
