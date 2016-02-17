@@ -13,17 +13,19 @@ public class BitSetTest {
 
     @Test
     public void testCreate() throws Exception {
-
+        BitSet bs = BitSet.create();
+        assertTrue(bs.get(0) == false, "Is not null");
     }
 
     @Test
     public void testCreate1() throws Exception {
-
+        BitSet bs = BitSet.create(200);
+        assertEquals(bs.length(), 4);
     }
 
     @Test
     public void testCreate2() throws Exception {
-
+        BitSet bs = BitSet.create(new long[] {7, 1}, 2);
     }
 
     @Test

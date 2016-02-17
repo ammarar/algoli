@@ -2,9 +2,6 @@ package me.algoli.bitset;
 
 import java.util.Arrays;
 
-/**
- * Created by ammar on 1/9/16.
- */
 public class BitSet {
 
     private final int UNIT_SIZE = 64;
@@ -126,7 +123,7 @@ public class BitSet {
 
     private void enforceIndex(int index) {
         assert index >= 0 : String.format("index [%s] has to be larger than or equal to 0", index);
-        assert index <= usedLength : String.format("index [%s] is greater than the size [%s]", index, size());
+        assert index <= size() : String.format("index [%s] is greater than the size [%s]", index, size());
     }
 
     private void updateUsedLength(int newLength) {
