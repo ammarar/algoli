@@ -7,6 +7,7 @@ import me.algoli.Iterable;
  */
 public interface List<E> extends Iterable {
     boolean append(E e);
+    boolean prepend(E e);
     boolean insert(int index, E e);
     E get(int index);
     boolean remove(E e);
