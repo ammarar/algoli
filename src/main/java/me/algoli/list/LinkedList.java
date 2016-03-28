@@ -12,6 +12,8 @@ public class LinkedList<E> implements List<E>, Queue<E>, Stack<E> {
 
     }
 
+    public static <E> LinkedList<E> create() { return new LinkedList<>(); }
+
 
     @Override
     public boolean append(E e) {
@@ -52,7 +54,7 @@ public class LinkedList<E> implements List<E>, Queue<E>, Stack<E> {
             prepend(e);
             result = true;
         } else {
-            Node runner = nodeAt(index);
+            Node runner = nodeAt(index - 1);
             if (runner != null) {
                 runner.append(Node.create(e));
                 result = true;
@@ -80,6 +82,7 @@ public class LinkedList<E> implements List<E>, Queue<E>, Stack<E> {
         if (node == null) {
             return false;
         }
+        updateHeadTail(node);
         node.remove();
         length--;
         return true;
@@ -121,15 +124,30 @@ public class LinkedList<E> implements List<E>, Queue<E>, Stack<E> {
     @Override
     public E pop() {
         Node<E> node = tail;
-        tail.remove();
+        tail = node.getPrev();
+        node.remove();
         return node.getVal();
     }
 
     @Override
     public E pop(int i) {
         Node<E> node = nodeAt(i);
+        if (node == null) {
+            return null;
+        }
+        updateHeadTail(node);
         node.remove();
         return node.getVal();
+    }
+
+    private void updateHeadTail(Node<E> node) {
+        if (node == null) return;
+        if (node == head) {
+            head = head.getNext();
+        }
+        if (node == tail) {
+            tail = tail.getPrev();
+        }
     }
 
     @Override
@@ -156,8 +174,25 @@ public class LinkedList<E> implements List<E>, Queue<E>, Stack<E> {
     }
 
     @Override
+    public void exchange(int i, int j) {
+        if (i == j) {
+            return;
+        }
+        Node<E> inode = nodeAt(i);
+        Node<E> jnode = nodeAt(j);
+        E temp = inode.getVal();
+        inode.setVal(jnode.getVal());
+        jnode.setVal(temp);
+    }
+
+    @Override
     public Iterator iterator() {
         return new LinkedListIterator();
+    }
+
+    @Override
+    public String toString() {
+        return "[" + (head != null? head.toString() : "") + "]";
     }
 
     private static class Node<X> {
@@ -188,7 +223,7 @@ public class LinkedList<E> implements List<E>, Queue<E>, Stack<E> {
         }
 
         public Node<X> append(Node<X> node) {
-            Node<X> after = node.getNext();
+            Node<X> after = this.getNext();
             this.next = node;
             node.prev = this;
             if (after != null) {
@@ -220,6 +255,10 @@ public class LinkedList<E> implements List<E>, Queue<E>, Stack<E> {
         public void setVal(X val) {
             this.val = val;
         }
+
+        @Override
+        public String toString() { return val != null ? val.toString()
+                + (next != null ? ", " + next.toString() : "") : "";}
     }
 
     private class LinkedListIterator implements Iterator<E> {

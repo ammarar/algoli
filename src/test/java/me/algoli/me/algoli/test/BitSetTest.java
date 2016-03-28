@@ -1,9 +1,7 @@
 package me.algoli.me.algoli.test;
 
 import me.algoli.bitset.BitSet;
-import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import static org.testng.Assert.*;
 
 /**
@@ -65,7 +63,7 @@ public class BitSetTest {
 
     @Test
     public void testGet() throws Exception {
-        Assert.assertEquals(true, BitSet.create(10).set(2).get(2), "Not properly set");
+        assertEquals(true, BitSet.create(10).set(2).get(2), "Not properly set");
     }
 
     @Test
