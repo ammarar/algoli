@@ -51,7 +51,11 @@ public class ArrayList<E> implements List<E>, Queue<E>, Stack<E>  {
                             current));
         }
         // Resize if needed, leaving index empty
-        if (current == capacity) expand(index);
+        if (current == capacity) {
+            expand(index);
+        } else if (index < current) {
+            shift(index);
+        }
         // Add e
         items[index] = e;
         current++;
@@ -86,7 +90,23 @@ public class ArrayList<E> implements List<E>, Queue<E>, Stack<E>  {
     @Override
     public boolean remove(E e) {
         // Resize if needed, taking out the element e
-        return false;
+        int removeIndex = indexOf(e);
+        if (removeIndex < 0) {
+            return false;
+        }
+        pop(removeIndex);
+        return true;
+    }
+
+    private int indexOf(E e) {
+        int result = -1;
+        for (int i=0; i < current; i++) {
+            if (e.equals(get(i))) {
+                result = i;
+                break;
+            }
+        }
+        return result;
     }
 
     @Override
@@ -124,7 +144,8 @@ public class ArrayList<E> implements List<E>, Queue<E>, Stack<E>  {
     @Override
     public E pop(int i) {
         if (i < 0 || i >= current) {
-            throw new IllegalArgumentException("");
+            throw new IllegalArgumentException(
+                    String.format("Attempting to remove index=[%d] while size is [%d]", i, current));
         }
 
         if (current == 0) {
@@ -137,16 +158,25 @@ public class ArrayList<E> implements List<E>, Queue<E>, Stack<E>  {
             shrink(i);
         } else {
             // else shift elements removing i.
-            shift(i);
+            removeAt(i);
         }
 
         current--;
         return item;
     }
 
+    private void removeAt(int index) {
+        if (index > 0) {
+            System.arraycopy(items, 0, items, 0, index - 1);
+        }
+        System.arraycopy(items, index + 1, items, index, items.length - index - 1);
+    }
+
     private void shift(int index) {
-        System.arraycopy(items, 0, items, 0, index);
-        System.arraycopy(items, index + 1, items, index, items.length);
+        if (index > 0) {
+            System.arraycopy(items, 0, items, 0, index);
+        }
+        System.arraycopy(items, index, items, index + 1, items.length - index - 1);
     }
 
     @SuppressWarnings("unchecked")
@@ -186,7 +216,7 @@ public class ArrayList<E> implements List<E>, Queue<E>, Stack<E>  {
     }
 
     @Override
-    public Iterator iterator() {
+    public Iterator<E> iterator() {
         return new ArrayListIterator();
     }
 

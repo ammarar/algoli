@@ -42,7 +42,7 @@ public class ArrayListTest {
         }
     }
 
-//    @Test
+    @Test
     public void insertTest() {
         List<Integer> list = getList();
         for (int i=1; i<=10; i = i + 2) {
@@ -61,7 +61,7 @@ public class ArrayListTest {
         }
     }
 
-//    @Test
+    @Test
     public void getTest() {
         List<Integer> list = getList();
         for (int i=0; i<=10; i++) {
@@ -73,7 +73,7 @@ public class ArrayListTest {
         }
     }
 
-//    @Test
+    @Test
     public void removeTest() {
         List<Integer> list = getList();
         for (int i=0; i<=10; i++) {
@@ -92,7 +92,7 @@ public class ArrayListTest {
         }
     }
 
-//    @Test
+    @Test
     public void setTest() {
         List<Integer> list = getList();
         for (int i=0; i<=10; i++) {
@@ -105,7 +105,7 @@ public class ArrayListTest {
         }
     }
 
-//    @Test
+    @Test
     public void popTest() {
         List<Integer> list = getList();
         for (int i=0; i<=10; i++) {
@@ -117,7 +117,7 @@ public class ArrayListTest {
         }
     }
 
-//    @Test
+    @Test
     public void popAtTest() {
         List<Integer> list = getList();
         for (int i=0; i<=10; i++) {
