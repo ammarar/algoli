@@ -2,9 +2,6 @@ package me.algoli.list;
 
 import me.algoli.Iterator;
 
-/**
- * Created by ammar on 1/8/16.
- */
 public class ArrayList<E> implements List<E>, Queue<E>, Stack<E>  {
 
     private E[] items;
@@ -26,9 +23,9 @@ public class ArrayList<E> implements List<E>, Queue<E>, Stack<E>  {
         return (E[]) new Object[initialCapacity];
     }
 
-    public static ArrayList create() { return new ArrayList(); }
-    public static ArrayList create(int initialCapacity) {
-        return new ArrayList(initialCapacity);
+    public static <T> ArrayList<T> create() { return new ArrayList<>(); }
+    public static <T> ArrayList<T> create(int initialCapacity) {
+        return new ArrayList<>(initialCapacity);
     }
 
     @Override
@@ -82,7 +79,8 @@ public class ArrayList<E> implements List<E>, Queue<E>, Stack<E>  {
     @Override
     public E get(int index) {
         if (index < 0 || index >= current) {
-            throw new IllegalArgumentException("");
+            throw new IllegalArgumentException(
+                    String.format("No elements at index %d out of %d", index, size()));
         }
         return items[index];
     }
@@ -204,7 +202,7 @@ public class ArrayList<E> implements List<E>, Queue<E>, Stack<E>  {
 
     @Override
     public int size() {
-        return current + 1;
+        return current;
     }
 
     @Override

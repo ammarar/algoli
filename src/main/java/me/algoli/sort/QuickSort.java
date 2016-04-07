@@ -7,7 +7,7 @@ import me.algoli.list.List;
  */
 public class QuickSort implements SortStrategy {
     @Override
-    public <T> void sort(List<Comparable<T>> list) {
+    public <T extends Comparable<? super T>> void sort(List<T> list) {
 
     }
 }

@@ -6,8 +6,9 @@ import me.algoli.list.List;
  * Created by ammar on 2/22/16.
  */
 public class MergeBottomUpSort implements SortStrategy {
+
     @Override
-    public <T> void sort(List<Comparable<T>> list) {
+    public <T extends Comparable<? super T>> void sort(List<T> list) {
 
     }
 }
