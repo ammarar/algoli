@@ -22,7 +22,7 @@ public class MergeSort implements SortStrategy {
         merge(list, start, mid, end, aux);
     }
 
-    private <T extends Comparable<? super T>> void merge(List<T> list, int start, int mid, int end, ArrayList<T> aux) {
+    protected <T extends Comparable<? super T>> void merge(List<T> list, int start, int mid, int end, List<T> aux) {
         //algs4 improvement
         if (list.get(mid).compareTo(list.get(mid+1)) <= 0) return;
         aux.fill(list, start, end);
@@ -30,8 +30,8 @@ public class MergeSort implements SortStrategy {
         for (int k=start; k<=end; k++) {
             if (i > mid)                { list.set(k, aux.get(j)); j++;}
             else if (j > end)           { list.set(k, aux.get(i)); i++;}
-            else if (aux.get(i).compareTo(aux.get(j)) < 0) { list.set(k, aux.get(i)); i++;}
-            else { list.set(k, aux.get(j)); j++;}
+            else if (aux.get(j).compareTo(aux.get(i)) < 0) { list.set(k, aux.get(j)); j++;}
+            else { list.set(k, aux.get(i)); i++;}
         }
     }
 }
