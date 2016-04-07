@@ -18,4 +18,5 @@ public interface List<E> extends Iterable {
     E pop(int i);
     int size();
     void exchange(int i, int j);
+    void fill(List<E> list, int start, int end);
 }

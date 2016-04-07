@@ -186,6 +186,21 @@ public class LinkedList<E> implements List<E>, Queue<E>, Stack<E> {
     }
 
     @Override
+    public void fill(List<E> list, int start, int end) {
+        Node<E> node = nodeAt(start);
+        int len = end - start;
+        if (len < 1) {
+            throw new IllegalArgumentException(
+                    String.format("Illegal arguments for start=[%d] and end=[%d]", start, end));
+        }
+
+        for (int i = start; i <= end && node != null; i++) {
+            node.setVal(list.get(i));
+            node = node.getNext();
+        }
+    }
+
+    @Override
     public Iterator iterator() {
         return new LinkedListIterator();
     }

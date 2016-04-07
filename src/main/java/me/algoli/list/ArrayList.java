@@ -219,6 +219,21 @@ public class ArrayList<E> implements List<E>, Queue<E>, Stack<E>  {
     }
 
     @Override
+    public void fill(List<E> list, int start, int end) {
+        if (end - start < 0) {
+            throw new IllegalArgumentException(
+                    String.format("Illegal arguments for start=[%d] and end=[%d]", start, end));
+        }
+
+        if (end >= items.length) {expand(end + 1);}
+
+        for (int i=start; i <= end; i++) {
+            items[i] = list.get(i);
+        }
+        current = end + 1;
+    }
+
+    @Override
     public String toString() {
         StringBuilder b = new StringBuilder();
         Iterator<E> iterator = this.iterator();
