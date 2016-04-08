@@ -9,9 +9,9 @@ import java.util.Random;
  */
 public class Shuffle {
 
-    private Shuffle() {};
+    private Shuffle() {}
 
-    public static <T> void knuthShuffle(List<Comparable<T>> list) {
+    public static <T extends Comparable<? super T>> void knuthShuffle(List<T> list) {
         Random rand = new Random(100);
         for (int i = 1; i < list.size(); i++) {
             int random = rand.nextInt(i + 1);
