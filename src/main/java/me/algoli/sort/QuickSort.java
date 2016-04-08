@@ -21,7 +21,7 @@ public class QuickSort implements SortStrategy {
         sort(list, partition+1, end);
     }
 
-    private <T extends Comparable<? super T>> int partition(List<T> list, int start, int end) {
+    public static <T extends Comparable<? super T>> int partition(List<T> list, int start, int end) {
         int partitionIndex = start;
         int less = start + 1;
         int more = end;
