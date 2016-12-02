@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class BitSet {
 
-    private final int UNIT_SIZE = 64;
+    private static final int UNIT_SIZE = 64;
     long[] values = null;
     int usedLength = 0;
     private enum Op {
@@ -13,6 +13,7 @@ public class BitSet {
 
     private BitSet() {
         this.values = new long[1];
+        usedLength = 1;
     }
 
     private BitSet(int nbits) {
@@ -82,7 +83,7 @@ public class BitSet {
     }
 
     public BitSet clear(int from, int to) {
-        return null;
+        return set(from, to, false);
     }
 
     public BitSet toggle(int index) {
@@ -91,7 +92,13 @@ public class BitSet {
     }
 
     public BitSet toggle(int from, int to) {
-        return null;
+        enforceIndex(from);
+        enforceIndex(to);
+        long[] values = getValues();
+        for (int i = from; i <= to; i++) {
+            setBit(i, !getBit(i, values), values);
+        }
+        return create(values, values.length);
     }
 
     public boolean get(int index) {
@@ -113,11 +120,8 @@ public class BitSet {
 
     public BitSet set(int index, boolean value) {
         enforceIndex(index);
-        int arrayIndex = index / UNIT_SIZE;
-        int indexInside = index % UNIT_SIZE;
         long[] newVals = Arrays.copyOf(values, values.length);
-        int val = value? 1 : 0;
-        newVals[arrayIndex] = newVals[arrayIndex] | (val << indexInside);
+        setBit(index, value, newVals);
         return create(newVals, usedLength);
     }
 
@@ -133,7 +137,33 @@ public class BitSet {
     }
 
     public BitSet set(int from, int to, boolean value) {
-        return null;
+        if (from > to) {
+            throw new IllegalArgumentException(String.format("from=[%s] is greater than to=[%]", from, to));
+        }
+        enforceIndex(from);
+        enforceIndex(to);
+        long[] newVals = getValues();
+        for (int index = from; index <= to; index++) {
+            setBit(index, value, newVals);
+        }
+        return create(values, values.length);
+    }
+
+    private static void setBit(int index, boolean value, long[] values) {
+        int arrayIndex = index / UNIT_SIZE;
+        int indexInside = index % UNIT_SIZE;
+        if (value) {
+            values[arrayIndex] = values[arrayIndex] | (1 << indexInside);
+        } else {
+            values[arrayIndex] = values[arrayIndex] & ~(1 << indexInside);
+        }
+    }
+
+    private static boolean getBit(int index, long[] values) {
+        int arrayIndex = index / UNIT_SIZE;
+        int indexInside = index % UNIT_SIZE;
+        boolean result = ((values[arrayIndex] >> indexInside) & 1) == 1;
+        return result;
     }
 
     public int length() {
@@ -146,5 +176,14 @@ public class BitSet {
 
     public long[] getValues() {
         return Arrays.copyOf(values, usedLength);
+    }
+
+    public BitSet complement() {
+        long[] values = getValues();
+        for (int i = 0; i < values.length; i++)
+        {
+            values[i] = ~values[i];
+        }
+        return create(values, values.length);
     }
 }

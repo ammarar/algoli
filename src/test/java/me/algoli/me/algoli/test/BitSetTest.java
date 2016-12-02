@@ -28,37 +28,50 @@ public class BitSetTest {
 
     @Test
     public void testAnd() throws Exception {
-
+        BitSet bs1 = BitSet.create().set(0, true);
+        BitSet bs2 = BitSet.create().set(0, false);
+        assertFalse(bs1.and(bs2).get(0));
     }
 
     @Test
     public void testOr() throws Exception {
-
+        BitSet bs1 = BitSet.create().set(0, true);
+        BitSet bs2 = BitSet.create().set(0, false);
+        assertTrue(bs1.or(bs2).get(0));
     }
 
     @Test
     public void testXor() throws Exception {
-
+        BitSet bs1 = BitSet.create().set(0, true);
+        BitSet bs2 = BitSet.create().set(0, false);
+        assertTrue(bs1.xor(bs2).get(0));
     }
 
     @Test
     public void testClear() throws Exception {
-
+        BitSet bs1 = BitSet.create().set(1, 5, true);
+        assertFalse(bs1.clear(3).get(3));
     }
 
     @Test
     public void testClear1() throws Exception {
-
+        BitSet bs1 = BitSet.create(90);
+        assertFalse(bs1.set(0, 89, true).clear(1, 15).get(13));
     }
 
     @Test
     public void testToggle() throws Exception {
-
+        BitSet toggle = BitSet.create(90).toggle(1);
+        assertTrue(toggle.get(1));
+        assertFalse(toggle.get(2));
     }
 
     @Test
     public void testToggle1() throws Exception {
-
+        BitSet toggle = BitSet.create(90).toggle(1, 70);
+        assertTrue(toggle.get(1));
+        assertTrue(toggle.get(30));
+        assertFalse(toggle.get(71));
     }
 
     @Test
@@ -68,7 +81,7 @@ public class BitSetTest {
 
     @Test
     public void testGet1() throws Exception {
-
+        BitSet bs1 = BitSet.create(90).set(2, 77, true).get(1, 5);
     }
 
     @Test
