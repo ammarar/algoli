@@ -70,6 +70,10 @@ public class LinkedList<E> implements List<E>, Queue<E>, Stack<E> {
     }
 
     private Node<E> nodeAt(final int index) {
+        if (index < 0 || index > size()) {
+            throw new IllegalArgumentException(
+                    String.format("No elements at index %d out of %d", index, size()));
+        }
         int count = index;
         Node<E> runner = head;
         for (; runner != null && count > 0; runner = runner.next) count--;
@@ -126,6 +130,7 @@ public class LinkedList<E> implements List<E>, Queue<E>, Stack<E> {
         Node<E> node = tail;
         tail = node.getPrev();
         node.remove();
+        length--;
         return node.getVal();
     }
 
@@ -137,6 +142,7 @@ public class LinkedList<E> implements List<E>, Queue<E>, Stack<E> {
         }
         updateHeadTail(node);
         node.remove();
+        length--;
         return node.getVal();
     }
 

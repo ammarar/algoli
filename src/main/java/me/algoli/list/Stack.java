@@ -8,4 +8,5 @@ public interface Stack<E> {
     E pop();
     E peek();
     int size();
+    boolean isEmpty();
 }

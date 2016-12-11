@@ -110,6 +110,8 @@ public class ArrayList<E> implements List<E>, Queue<E>, Stack<E>  {
     @Override
     public void clear() {
         this.items = createArrayList(DEFAULT_CAPACITY);
+        this.current = 0;
+        this.capacity = DEFAULT_CAPACITY;
     }
 
     @Override
@@ -236,12 +238,14 @@ public class ArrayList<E> implements List<E>, Queue<E>, Stack<E>  {
     @Override
     public String toString() {
         StringBuilder b = new StringBuilder();
-        Iterator<E> iterator = this.iterator();
         b.append("[");
-        while (iterator.hasNext()) {
-            b.append(iterator.next());
-            if (iterator.hasNext()) {
-                b.append(", ");
+        if (!isEmpty()) {
+            Iterator<E> iterator = this.iterator();
+            while (iterator.hasNext()) {
+                b.append(iterator.next());
+                if (iterator.hasNext()) {
+                    b.append(", ");
+                }
             }
         }
         b.append("]");

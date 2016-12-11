@@ -3,7 +3,7 @@ package me.algoli.list;
 /**
  * Created by ammar on 11/22/16.
  */
-public class BinaryHeap<E extends Comparable<E>> implements PriorityQueue<E> {
+public class BinaryHeap<E extends Comparable<? super E>> implements PriorityQueue<E> {
 
     private List<E> list;
 
@@ -15,11 +15,11 @@ public class BinaryHeap<E extends Comparable<E>> implements PriorityQueue<E> {
         list = LinkedList.create();
     }
 
-    public static <T extends Comparable<T>> BinaryHeap<T> create(int initialCapacity) {
+    public static <T extends Comparable<? super T>> BinaryHeap<T> create(int initialCapacity) {
         return new BinaryHeap<>(initialCapacity);
     }
 
-    public static <T extends Comparable<T>> BinaryHeap<T> create() {
+    public static <T extends Comparable<? super T>> BinaryHeap<T> create() {
         return new BinaryHeap<>();
     }
 
@@ -82,7 +82,12 @@ public class BinaryHeap<E extends Comparable<E>> implements PriorityQueue<E> {
                     lesserChild = rightChildOf(k);
                 }
             }
-            exchange(index, lesserChild);
+            if (get(k).compareTo(get(lesserChild)) > 0) {
+                exchange(k, lesserChild);
+            } else {
+                break;
+            }
+
             k = lesserChild;
         }
     }
