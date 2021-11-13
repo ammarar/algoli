@@ -3,9 +3,6 @@ package me.algoli.sort;
 import me.algoli.list.ArrayList;
 import me.algoli.list.List;
 
-/**
- * Created by ammar on 2/22/16.
- */
 public class MergeBottomUpSort extends MergeSort {
 
     @Override

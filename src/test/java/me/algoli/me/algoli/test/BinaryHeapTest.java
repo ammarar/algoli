@@ -4,9 +4,6 @@ import me.algoli.list.BinaryHeap;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-/**
- * Created by ammar on 12/1/16.
- */
 public class BinaryHeapTest {
 
     @Test

@@ -4,9 +4,6 @@ import me.algoli.Iterator;
 import me.algoli.list.BinaryHeap;
 import me.algoli.list.List;
 
-/**
- * Created by ammar on 12/1/16.
- */
 public class HeapSort implements SortStrategy {
 
     @Override

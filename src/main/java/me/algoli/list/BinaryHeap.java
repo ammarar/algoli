@@ -1,8 +1,5 @@
 package me.algoli.list;
 
-/**
- * Created by ammar on 11/22/16.
- */
 public class BinaryHeap<E extends Comparable<? super E>> implements PriorityQueue<E> {
 
     private List<E> list;

@@ -2,9 +2,6 @@ package me.algoli.tree;
 
 import me.algoli.Iterable;
 
-/**
- * Created by ammar on 12/4/16.
- */
 public interface BinaryTreeOps<Key, Value> {
 
     void insert(Key key, Value val);

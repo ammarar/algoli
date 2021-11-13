@@ -6,9 +6,6 @@ import static org.testng.Assert.*;
 
 import java.util.stream.IntStream;
 
-/**
- * Created by ammar on 12/5/16.
- */
 public class BinaryTreeTest {
 
     @Test

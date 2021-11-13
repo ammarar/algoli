@@ -3,9 +3,6 @@ package me.algoli.functions;
 import me.algoli.list.List;
 import me.algoli.sort.QuickSort;
 
-/**
- * Created by aalrashe on 4/8/2016.
- */
 public class Selection {
     private Selection() {}
     public static <T extends Comparable<? super T>> T select(List<T> list, int k) {

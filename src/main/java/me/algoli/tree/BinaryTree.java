@@ -10,9 +10,6 @@ import java.util.Random;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-/**
- * Created by ammar on 12/4/16.
- */
 public class BinaryTree<Key, Value> implements BinaryTreeOps<Key, Value> {
 
     private Node root;

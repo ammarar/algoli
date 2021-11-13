@@ -2,9 +2,6 @@ package me.algoli.list;
 
 import me.algoli.Iterable;
 
-/**
- * Created by ammar on 1/8/16.
- */
 public interface List<E> extends Iterable {
     boolean append(E e);
     boolean prepend(E e);

@@ -10,9 +10,6 @@ import java.util.Random;
 
 import static org.testng.Assert.assertEquals;
 
-/**
- * Created by aalrashe on 4/7/2016.
- */
 public class BottomUpMergeTest {
     private SortStrategy sortStrategy = new MergeBottomUpSort();
 

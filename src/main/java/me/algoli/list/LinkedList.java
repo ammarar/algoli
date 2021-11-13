@@ -93,7 +93,7 @@ public class LinkedList<E> implements List<E>, Queue<E>, Stack<E> {
     }
 
     private Node<E> find(E e) {
-        Node runner = head;
+        Node<E> runner = head;
         for(; runner != null && !runner.getVal().equals(e); runner = runner.next);
         return runner;
     }

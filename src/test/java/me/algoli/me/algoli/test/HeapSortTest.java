@@ -11,9 +11,6 @@ import java.util.Random;
 
 import static org.testng.Assert.assertEquals;
 
-/**
- * Created by ammar on 12/3/16.
- */
 public class HeapSortTest {
     private SortStrategy sortStrategy = new HeapSort();
 

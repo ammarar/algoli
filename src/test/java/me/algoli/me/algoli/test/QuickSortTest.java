@@ -10,9 +10,6 @@ import java.util.Random;
 
 import static org.testng.Assert.assertEquals;
 
-/**
- * Created by aalrashe on 4/8/2016.
- */
 public class QuickSortTest {
     private SortStrategy sortStrategy = new QuickSort();
 

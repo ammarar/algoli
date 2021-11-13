@@ -2,9 +2,6 @@ package me.algoli.sort;
 
 import me.algoli.list.List;
 
-/**
- * Created by aalrashe on 4/8/2016.
- */
 public class ThreeWayQuickSort implements SortStrategy {
     @Override
     public <T extends Comparable<? super T>> void sort(List<T> list) {

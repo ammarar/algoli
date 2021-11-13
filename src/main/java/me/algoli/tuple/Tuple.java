@@ -1,8 +1,5 @@
 package me.algoli.tuple;
 
-/**
- * Created by ammar on 12/9/16.
- */
 public class Tuple<L,R> {
 
     private L left;

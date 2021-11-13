@@ -4,9 +4,6 @@ import me.algoli.list.List;
 
 import java.util.Random;
 
-/**
- * Created by ammar on 2/22/16.
- */
 public class Shuffle {
 
     private Shuffle() {}

@@ -4,9 +4,6 @@ import me.algoli.bitset.BitSet;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-/**
- * Created by ammar on 1/10/16.
- */
 public class BitSetTest {
 
     @Test
